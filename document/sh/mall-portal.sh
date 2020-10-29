@@ -4,9 +4,10 @@ docker stop ${app_name}
 echo '----stop container----'
 docker rm ${app_name}
 echo '----rm container----'
-docker rmi `docker images | grep none | awk '{print $3}'`
+docker rmi `docker images | grep portal | awk '{print $3}'`
 echo '----rm none images----'
-docker run -p 8085:8085 --name ${app_name} \
+docker run -p 8085:8085 -p 8001:8001 -p 9100:9100 \
+--name ${app_name} \
 --link mysql:db \
 --link redis:redis \
 --link mongo:mongo \

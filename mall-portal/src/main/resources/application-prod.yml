@@ -2,6 +2,8 @@ server:
   port: 8085
 
 spring:
+  application:
+    name: mall_prometheus
   datasource:
     url: jdbc:mysql://db:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: reader
@@ -40,9 +42,41 @@ logging:
   file:
     path: /var/logs
   level:
-    root: info
-    com.macro.mall: info
+    root: DEBUG
+    com.macro.mall: DEBUG
 
 logstash:
   host: logstash
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, beans, env, metrics, mappings, scheduledtasks, sessions, threaddump, docs, logfile, jolokia,prometheus
+      base-path: /actuator # 默认/actuator 不更改可不用配置
+      #CORS跨域支持
+      cors:
+        allowed-origins: http://example.com
+        allowed-methods: GET,PUT,POST,DELETE
+    prometheus:
+      id: springmetrics
+  endpoint:
+    beans:
+      cache:
+        time-to-live: 10s #端点缓存响应的时间量
+    health:
+      show-details: always #详细信息显示给所有用户
+  server:
+    port: 8001 #默认8080
+    # address: 127.0.0.1 # 配置此项表示不允许远程连接
+
+  #监测
+  metrics:
+    export:
+      datadog:
+        application-key: ${spring.application.name}
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
