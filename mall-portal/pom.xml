@@ -73,7 +73,7 @@
                     <baseImage>java:8</baseImage>
                     <entryPoint>["java", "-jar","-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]
                     </entryPoint>
-                    <dockerCertPath>D:\developer\env\docker-ca</dockerCertPath>
+                    <dockerCertPath>/mydata/docker_client_ca</dockerCertPath>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
