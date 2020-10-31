@@ -69,7 +69,7 @@
                 </executions>
                 <configuration>
                     <imageName>mall-portal/${project.artifactId}:${project.version}</imageName>
-                    <dockerHost>${docker.host}</dockerHost>
+                    <dockerHost>https://s130:2375</dockerHost>
                     <baseImage>java:8</baseImage>
                     <entryPoint>["java", "-jar","-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]
                     </entryPoint>
